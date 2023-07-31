@@ -4,7 +4,13 @@ import { svelte } from "@sveltejs/vite-plugin-svelte";
 import typescript from "@rollup/plugin-typescript";
 
 export default defineConfig({
-  plugins: [svelte(), typescript() /*visualizer() as PluginOption*/],
+  plugins: [
+    svelte({
+      emitCss: false,
+    }),
+    typescript(),
+    /*,visualizer() as PluginOption*/
+  ],
   build: {
     lib: {
       entry: "/src/index.ts",
@@ -18,7 +24,6 @@ export default defineConfig({
         "ethers",
         "viem",
         "@wagmi/chains",
-        "axios",
       ],
 
       output: {

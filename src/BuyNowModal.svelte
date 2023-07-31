@@ -1,4 +1,8 @@
 <script lang="ts">
+  import { createClient, type Execute } from "@reservoir0x/reservoir-sdk";
+  import { ethers } from "ethers";
+  import { onMount } from "svelte";
+  import axios from "axios";
   import { Button, Modal, RarityRank } from "./components";
   import {
     BuyListingState,
@@ -6,9 +10,6 @@
     type Token,
   } from "./types/generic";
   import { formatAmount, formatDollar } from "./lib/numbers";
-  import { ethers } from "ethers";
-  import { onMount } from "svelte";
-  import { createClient, type Execute } from "@reservoir0x/reservoir-sdk";
   import { adaptEthersSigner } from "@reservoir0x/ethers-wallet-adapter";
   import {
     AllNetworkChains,
@@ -29,10 +30,16 @@
   export let isOpen: boolean;
   export let contractAddress: string;
   export let tokenId: string;
-  export let connectedAccount: string;
+  export let connectedAccount: string | null;
   export let networkId: NetworkChainIdf;
 
-  const provider = new ethers.providers.Web3Provider(window.ethereum, "any");
+  let provider: ethers.providers.Web3Provider | null = null;
+
+  if (typeof window !== "undefined") {
+    provider = new ethers.providers.Web3Provider(window.ethereum, "any");
+  } else {
+    console.log("This is server side. window object does not exist.");
+  }
 
   let tokenListing: Token | null;
   let buyListingState: BuyListingState | null = null;
@@ -67,20 +74,24 @@
   }
 
   onMount(async () => {
-    window.ethereum.on("accountsChanged", (accounts: string[]) => {
-      connectedAccount = accounts[0];
-    });
-    window.ethereum.on("chainChanged", (res: string) => {
-      chainId = Number(res);
-    });
+    if (typeof window !== "undefined") {
+      window.ethereum.on("accountsChanged", (accounts: string[]) => {
+        connectedAccount = accounts[0];
+      });
+
+      window.ethereum.on("chainChanged", (res: string) => {
+        chainId = Number(res);
+      });
+    } else {
+      console.log("This is server side. window object does not exist.");
+    }
   });
 
   const fetchToken = async () => {
     isLoadingToken = true;
-    const response = await fetch(
+    const { data } = await axios.get(
       `${apiUrl}/tokens/v6?tokenSetId=token:${contractAddress}:${tokenId}`
     );
-    const data = await response.json();
 
     if (data.tokens) {
       tokenListing = convertReservoirToken(data.tokens);
@@ -89,8 +100,10 @@
   };
 
   const getBalance = async () => {
-    const balance = await provider.getBalance(connectedAccount);
-    balanceInEther = ethers.utils.formatEther(balance);
+    if (connectedAccount) {
+      const balance = await provider.getBalance(connectedAccount);
+      balanceInEther = ethers.utils.formatEther(balance);
+    }
   };
 
   const buyToken = async () => {

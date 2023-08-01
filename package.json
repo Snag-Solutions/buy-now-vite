@@ -1,7 +1,10 @@
 {
-  "name": "buy-now-svelte",
+  "name": "@snag/buy-now-svelte",
   "private": false,
-  "version": "0.2.11",
+  "publishConfig": {
+    "access": "public"
+  },
+  "version": "0.2.12",
   "type": "module",
   "main": "dist/BuyNowModal.umd.js",
   "module": "dist/BuyNowModal.es.js",
@@ -13,7 +16,8 @@
     "build": "rm -rf dist && npm run build:css && NODE_ENV=production vite build && cp src/BuyNowModal.d.ts dist/",
     "preview": "vite preview",
     "check": "svelte-check --tsconfig ./tsconfig.json",
-    "build:css": "tailwindcss build -i src/BuyNowModal.dev.css -o src/BuyNowModal.css"
+    "build:css": "tailwindcss build -i src/BuyNowModal.dev.css -o src/BuyNowModal.css",
+    "publish": "npm run build && npm publish"
   },
   "devDependencies": {
     "@rollup/plugin-terser": "^0.4.3",

@@ -1,4 +1,4 @@
-declare module "buy-now-svelte" {
+declare module "@snag/buy-now-svelte" {
   import { SvelteComponentTyped } from "svelte";
 
   export type NetworkChainIdf =

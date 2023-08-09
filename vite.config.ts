@@ -2,6 +2,7 @@ import { defineConfig } from "vite";
 import { svelte } from "@sveltejs/vite-plugin-svelte";
 // import { visualizer } from "rollup-plugin-visualizer";
 import typescript from "@rollup/plugin-typescript";
+import libCss from 'vite-plugin-libcss';
 
 export default defineConfig({
   plugins: [
@@ -9,6 +10,7 @@ export default defineConfig({
       emitCss: false,
     }),
     typescript(),
+    libCss(),
     /*,visualizer() as PluginOption*/
   ],
   build: {

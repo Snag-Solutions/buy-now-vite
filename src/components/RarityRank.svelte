@@ -3,16 +3,16 @@
 </script>
 
 {#if !rarityRank}
-    <span class="text-xs text-primary-text md:text-sm">-</span>
+    <span class="text-sm text-primary-text">-</span>
 {:else}
     <div
-        class="flex w-fit items-center rounded-md border border-separator bg-secondary px-2 py-[0.155rem] font-semibold text-primary-text"
+        class="flex w-fit items-center rounded-md border border-separator border-solid bg-secondary px-2 py-[0.155rem] font-semibold text-primary-text"
     >
-        <span class="mr-[6px] text-xs leading-none md:text-sm">
+        <span class="mr-[6px] text-sm leading-none">
             {rarityRank}
         </span>
         <svg
-            class="h-3 w-3 md:h-4 md:w-4"
+            class="h-4 w-4"
             width="16"
             height="17"
             viewBox="0 0 16 17"
@@ -42,3 +42,4 @@
         </svg>
     </div>
 {/if}
+<style src="../BuyNowModal.css"></style>

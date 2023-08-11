@@ -24,7 +24,6 @@
     SpinnerIcon,
     TwitterIcon,
   } from "./icons";
-  import "./BuyNowModal.css";
 
   export let onOpenChange: () => void;
   export let isOpen: boolean;
@@ -185,7 +184,7 @@
     <svelte:fragment slot="header">
       {modalTitle}
     </svelte:fragment>
-    <div slot="body">
+    <div class="font-custom text-base" slot="body">
       {#if chainId !== ChainIdByNetwork[networkId]}<span
           >Wrong network, make sure you are connected to {ChainNameByNetwork[
             networkId
@@ -199,7 +198,7 @@
         {#if !buyListingState}
           {#if tokenListing}
             {#if tokenListing?.reservoirListing}
-              <div class="">
+              <div class="box-border border-0 border-solid border-separator">
                 <div class="flex gap-6">
                   <img
                     class="h-24 w-24 rounded"
@@ -210,7 +209,7 @@
                   <div
                     class="flex basis-4/5 flex-col justify-between justify-items-start py-2"
                   >
-                    <h3 class="text-xl font-semibold text-primary-text">
+                    <h3 class="text-xl m-0 font-semibold text-primary-text">
                       {tokenListing.name}
                     </h3>
 
@@ -239,7 +238,7 @@
                   </div>
                 </div>
 
-                <div class="mt-6 border-t-[1px] border-separator pt-6">
+                <div class="mt-6 border-0 border-t-[1px] border-separator border-solid pt-6">
                   <div class="flex flex-row items-center gap-2">
                     <img
                       src={tokenListing?.reservoirListing?.sourceIcon}
@@ -260,14 +259,14 @@
                   to our technology partner, Snag Solutions,<a
                     target="_blank"
                     rel="noreferrer"
-                    class="ml-0.5 font-semibold underline"
+                    class="ml-0.5 font-semibold underline text-primary-text"
                     href="https://snagsolutions.io/terms-and-conditions"
                     >Terms and conditions</a
                   >.
                 </div>
               </div>
             {:else}
-              <div class="flex flex-col gap-6">
+              <div class="flex flex-col gap-6 box-border border-0 border-solid border-separator">
                 <div class="flex gap-6">
                   <img
                     class="h-24 w-24 rounded"
@@ -275,7 +274,7 @@
                     alt={tokenListing.name}
                   />
                   <div class="flex basis-4/5 flex-col justify-items-start py-2">
-                    <h3 class="text-xl font-semibold text-primary-text">
+                    <h3 class="text-xl m-0 font-semibold text-primary-text">
                       {tokenListing.name}
                     </h3>
 
@@ -292,7 +291,7 @@
         {/if}
 
         {#if buyListingState && buyListingState !== BuyListingState.Success}
-          <div class="flex flex-col gap-8">
+          <div class="flex flex-col gap-8 box-border border-0 border-solid border-separator">
             <div class="flex flex-row items-center gap-6">
               {#if buyListingState === BuyListingState.Created}
                 <SpinnerIcon className={"h-10 w-10"} />
@@ -301,7 +300,7 @@
               {/if}
 
               <div class="flex flex-col justify-between text-primary-text">
-                <div class="text-base font-semibold sm:text-xl">
+                <div class="font-custom text-xl font-semibold">
                   Confirm purchase
                 </div>
                 <div class="text-sm">
@@ -313,10 +312,10 @@
         {/if}
 
         {#if buyListingState === BuyListingState.Success}
-          <div class="flex-grow overflow-y-auto text-primary-text">
-            <div class="flex flex-col items-center gap-6 sm:gap-8">
+          <div class="flex-grow overflow-y-auto text-primary-text box-border border-0 border-solid border-separator">
+            <div class="flex flex-col items-center gap-8">
               <div
-                class="relative h-[128px] w-[128px] sm:h-[256px] sm:w-[256px]"
+                class="relative h-[256px] w-[256px]"
               >
                 <div class="media-frame rounded-xl border-4 border-success">
                   <div class="relative h-0 overflow-hidden bg-black pt-[100%]">
@@ -340,16 +339,16 @@
                 <div class="font-semibold">View on Explorer</div>
                 <ExternalLinkIcon className="h-4 w-4" />
               </a>
-              <div class="flex w-full flex-row gap-3 sm:w-auto">
+              <div class="flex w-full flex-row gap-3 w-auto">
                 <Button
                   onClick={onOpenChange}
-                  className="flex w-full justify-center px-6 py-2.5 leading-5 sm:w-auto"
+                  className="flex justify-center px-6 py-2.5 leading-5 w-auto"
                   >Close</Button
                 >
 
                 <Button
                   type="link"
-                  className="px-6 py-2.5 leading-5 sm:w-auto bg-[#34A2F2]"
+                  className="px-6 py-2.5 leading-5 bg-[#34A2F2] w-auto"
                   href={shareLink}
                   ><span
                     class="flex flex-row items-center gap-2 text-[#ffffff]"
@@ -367,7 +366,7 @@
     <svelte:fragment slot="footer">
       {#if !buyListingState && chainId === ChainIdByNetwork[networkId]}
         {#if connectedAccount}
-          <div class="flex flex-row items-center gap-2 mr-auto">
+          <div class="flex flex-row items-center gap-2 mr-auto text-base font-custom">
             <div class="text-sm font-semibold uppercase text-secondary-text">
               Your balance
             </div>
@@ -388,10 +387,11 @@
           onClick={buyToken}
           disabled={!connectedAccount ||
             buyListingState === BuyListingState.Created}
-          className="border-0 px-6 py-2.5 leading-5 md:w-auto"
+          className="border-0 px-6 py-2.5 leading-5 w-auto"
           isPrimary>Checkout</Button
         >
       {/if}
     </svelte:fragment>
   </Modal>
 {/if}
+<style src="./BuyNowModal.css"></style>

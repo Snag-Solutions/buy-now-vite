@@ -3,11 +3,12 @@ import { svelte } from "@sveltejs/vite-plugin-svelte";
 // import { visualizer } from "rollup-plugin-visualizer";
 import typescript from "@rollup/plugin-typescript";
 import libCss from 'vite-plugin-libcss';
+import sveltePreprocess from 'svelte-preprocess';
 
 export default defineConfig({
   plugins: [
     svelte({
-      emitCss: false,
+      preprocess: sveltePreprocess({})
     }),
     typescript(),
     libCss(),
@@ -27,7 +28,6 @@ export default defineConfig({
         "viem",
         "@wagmi/chains",
       ],
-
       output: {
         globals: {
           svelte: "svelte",

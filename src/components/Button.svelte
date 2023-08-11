@@ -7,11 +7,11 @@
     export let href = '';
 
     const classNameToUse = [
-        'pill-button',
+        'pill-button text-base',
         isPrimary ? 'primary-pill-button' : 'secondary-pill-button',
         'cursor-pointer whitespace-nowrap rounded-full border border-solid font-semibold outline-none transition disabled:pointer-events-none disabled:cursor-default disabled:opacity-50 h-fit',
         isPrimary ? 'bg-primary hover:bg-primary-hover' : 'bg-secondary hover:bg-secondary-hover',
-        isPrimary ? 'border-transparent' : 'border-separator',
+        isPrimary ? 'border-transparent' : 'border-separator border-solid',
         isPrimary ? 'text-over-text disabled:text-over-text' : 'text-primary-text',
         className,
     ].join(' ');

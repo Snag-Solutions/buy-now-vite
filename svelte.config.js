@@ -1,15 +1,7 @@
-import { vitePreprocess } from "@sveltejs/vite-plugin-svelte";
-import autoPreprocess from "svelte-preprocess";
-import tailwindcss from "tailwindcss";
-import autoprefixer from "autoprefixer";
+import { vitePreprocess } from '@sveltejs/vite-plugin-svelte'
 
 export default {
-  preprocess: autoPreprocess({
-    defaults: {
-      script: "typescript",
-    },
-    postcss: {
-      plugins: [tailwindcss, autoprefixer],
-    },
-  }),
-};
+  // Consult https://svelte.dev/docs#compile-time-svelte-preprocess
+  // for more information about preprocessors
+  preprocess: vitePreprocess(),
+}
